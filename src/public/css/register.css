@@ -1,0 +1,99 @@
+/* :rootのCSS変数の宣言 */
+:root {
+    --white: #fff;
+    --main-color: #305DFF;
+}
+
+.register__content {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register__wrapper {
+    width: 350px;
+    height: 250px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
+}
+
+.register-form__heading {
+    border-radius: 5px 5px 0 0;
+    background-color: var(--main-color);
+}
+
+.register-form__heading h3 {
+    margin: 0;
+    padding: 10px 20px;
+    color: var(--white);
+    font-weight: 400;
+}
+
+.register-form__group {
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    /*align-items: center;*/
+}
+
+.register-form__input--user,
+.register-form__input--mail,
+.register-form__input--password {
+    margin-bottom: 10px;
+    height: 30px;
+    width: 100%;
+}
+
+.register-form__input--user::before {
+    content: "";
+    background: url(../image/icon_user.png);
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.register-form__input--mail::before {
+    content: "";
+    background: url(../image/icon_mail.png);
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.register-form__input--password::before {
+    content: "";
+    background: url(../image/icon_password.png);
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.register-form__input--user input,
+.register-form__input--mail input,
+.register-form__input--password input {
+    width: 90%;
+    border: none;
+    border-bottom: 1px solid #4b4b4b    ;
+}
+
+.register-form__button {
+    padding-right: 5px;
+    text-align: right;
+}
+
+.register-form__button-submit {
+    padding: 4px 5px;
+    width: 50px;
+    color: var(--white);
+    background: var(--main-color);
+    border: none;
+    border-radius: 3px;
+}

@@ -1,0 +1,150 @@
+/* :rootのCSS変数の宣言 */
+:root {
+    --white: #fff;
+    --main-color: #305DFF;
+}
+
+html {
+    background: #eee;
+    color: var(--main-color);
+    font-family: "Geist", sans-serif;}
+
+a {
+    text-decoration: none;
+    color: var(--main-color);
+}
+
+.header {
+    width: 100%;
+}
+
+.header__inner {
+    margin: 0;
+    padding: 20px 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/*=============================
+    menuアイコン
+=============================*/
+.header__menu {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+    border-radius: 5px;
+    background: var(--main-color);
+    box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, .4);
+    z-index: 99;
+}
+
+.header__menu span {
+    position: absolute;
+    left: 20%;
+    width: 100%;
+    height: 1px;
+    background-color: var(--white);
+    border-radius: 4px;
+}
+
+.header__menu,
+.header__menu span {
+    display: inline-block;
+    transition: all .5s;
+    box-sizing: border-box;
+}
+
+.header__menu span:nth-of-type(1) {
+    top: 10px;
+    width: 9px;
+}
+
+.header__menu span:nth-of-type(2) {
+    top: 17px;
+    width: 18px;
+}
+
+.header__menu span:nth-of-type(3) {
+    bottom: 10px;
+    width: 5px;
+}
+
+
+/*=============================
+    menuアイコンが押されたとき
+=============================*/
+#menu-button.active span {
+    width: 20px;
+    left: 20%;
+}
+
+#menu-button.active span:nth-of-type(1) {
+    -webkit-transform: translateY(8px) rotate(-45deg);
+    transform:translateY(8px) rotate(-45deg);
+}
+
+#menu-button.active span:nth-of-type(2) {
+    opacity: 0;
+}
+
+#menu-button.active span:nth-of-type(3) {
+    -webkit-transform: translateY(-6px) rotate(45deg);
+    transform: translateY(-6px) rotate(45deg);
+}
+
+/*=============================
+    fullscreen navigation
+=============================*/
+.gnav {
+    background: rgba(255, 255, 255, .9);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: none;
+    position: fixed;
+    z-index: 50;
+}
+
+.gnav.active {
+    display: block;
+}
+
+.gnav__wrapper {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.gnav-menu__item {
+    margin: 10px 0;
+    list-style: none;
+    text-align: center;
+}
+
+.gnav-menu__item a {
+    color: var(--main-color);
+    font-size: 2em;
+    font-weight: 500;
+    padding: 40px;
+    text-decoration: none;
+    transition: .5s;
+}
+
+.gnav-menu__item a:hover {
+    color: aqua;
+}
+
+.header__title {
+    margin-left: 20px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
