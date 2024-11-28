@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('auth.register');
+/* 会員登録サンクスページ */
+Route::get('/thanks', function () {
+    return view('auth.thanks');
 });
+
+Route::get('/', [ShopController::class, 'index']);
+
+Route::post('/favorite', [FavoriteController::class, 'store']);

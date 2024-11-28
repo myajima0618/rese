@@ -4,40 +4,30 @@
     --main-color: #305DFF;
 }
 
-.register__wrapper {
+.login__wrapper {
+    margin: 50px 0;
     width: 350px;
-    height: 250px;
+    height: 220px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
 }
 
-.register-form__group {
+.login-form__group {
     margin: 10px auto;
     width: 90%;
     display: flex;
     flex-direction: column;
 }
 
-.register-form__input--user,
-.register-form__input--mail,
-.register-form__input--password {
+.login-form__input--mail,
+.login-form__input--password {
     margin: 0;
     height: 30px;
     width: 100%;
 }
 
-.register-form__input--user::before {
-    content: "";
-    background: url(../image/icon_user.png);
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    vertical-align: middle;
-}
-
-.register-form__input--mail::before {
+.login-form__input--mail::before {
     content: "";
     background: url(../image/icon_mail.png);
     background-size: cover;
@@ -47,7 +37,7 @@
     vertical-align: middle;
 }
 
-.register-form__input--password::before {
+.login-form__input--password::before {
     content: "";
     background: url(../image/icon_password.png);
     background-size: cover;
@@ -57,9 +47,8 @@
     vertical-align: middle;
 }
 
-.register-form__input--user input,
-.register-form__input--mail input,
-.register-form__input--password input {
+.login-form__input--mail input,
+.login-form__input--password input {
     padding: 2px 5px;
     width: 90%;
     border: none;
@@ -67,13 +56,13 @@
     border-bottom: 1px solid #4b4b4b;
 }
 
-.register-form__button {
-    margin-top: 10px;
+.login-form__button {
+    margin-top: 15px;
     padding-right: 5px;
     text-align: right;
 }
 
-.register-form__button-submit {
+.login-form__button-submit {
     padding: 5px 10px;
     color: var(--white);
     background: var(--main-color);
@@ -81,7 +70,7 @@
     border-radius: 3px;
 }
 
-.register-form__error {
+.login-form__error {
     margin: 0;
     min-height: 15px;
     font-size: 11px;

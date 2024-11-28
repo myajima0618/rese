@@ -19,9 +19,9 @@ a {
 }
 
 .header__inner {
-    margin: 0;
-    padding: 20px 100px;
-    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+    width: 85%;
     display: flex;
     align-items: center;
 }
@@ -138,6 +138,16 @@ a {
     transition: .5s;
 }
 
+.gnav-menu__item button {
+    color: var(--main-color);
+    font-size: 2em;
+    font-weight: 500;
+    padding: 40px;
+    border: none;
+    display: inline;
+    transition: .5s;
+}
+
 .gnav-menu__item a:hover {
     color: aqua;
 }
@@ -148,3 +158,35 @@ a {
     font-weight: 700;
 }
 
+/*=============================
+    display box
+=============================*/
+.register__content,
+.thanks__content,
+.login__content {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.register-form__heading,
+.login-form__heading {
+    border-radius: 5px 5px 0 0;
+    background-color: var(--main-color);
+}
+
+.register-form__heading h3,
+.login-form__heading h3 {
+    margin: 0;
+    padding: 10px 20px;
+    color: var(--white);
+    font-weight: 400;
+}
+
+/*=============================
+    search box
+=============================*/
+.search__content {
+    visibility: hidden;
+}
