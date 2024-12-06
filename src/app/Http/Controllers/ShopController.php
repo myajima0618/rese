@@ -11,8 +11,8 @@ use App\Models\Favorite;
 
 class ShopController extends Controller
 {
-    /* 店舗一覧表示 */
-    public function index()
+    /* 店舗一覧表示・検索機能 */
+    public function index(Request $request)
     {
         // エリア情報、ジャンル情報取得
         $areas = Area::all();
@@ -21,10 +21,25 @@ class ShopController extends Controller
         // 現在認証しているユーザー
         $user = Auth::user();
 
-        // 飲食店情報取得
-        $shops = Shop::with('area', 'category')->get();
+        // リクエストパラメータ
+        $area_id = $request->area_id;
+        $category_id = $request->category_id;
+        $keyword = $request->keyword;
 
-        if(isset($user)){
+        // 飲食店情報取得
+        $shops = Shop::with('area', 'category')
+            ->AreaSearch($area_id)
+            ->CategorySearch($category_id)
+            ->KeywordSearch($keyword)
+            ->get();
+        
+        // リクエストパラメータを配列に格納
+        $param = [];
+        $param['area_id'] = $area_id;
+        $param['category_id'] = $category_id;
+        $param['keyword'] = $keyword;
+
+        if (isset($user)) {
             // ユーザーに紐づくお気に入り情報取得
             foreach ($shops as $shop) {
                 $favorite = Favorite::where('shop_id', $shop['id'])
@@ -34,6 +49,7 @@ class ShopController extends Controller
             }
         }
 
-        return view('index', compact('areas', 'categories', 'shops', 'user'));
+        return view('index', compact('areas', 'categories', 'shops', 'user', 'param'));
     }
+
 }

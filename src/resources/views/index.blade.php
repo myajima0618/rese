@@ -20,15 +20,14 @@
             </div>
             <div class="shop__button">
                 <a href="/detail" class="shop__button-detail">詳しく見る</a>
-                <form action="/favorite" method="post">
-                    @csrf
-                    <input type="hidden" name="shop_id" value="{{ $shop['id'] }}">
-                    @if(isset($shop['favorite']))
-                    <button type="submit" class="shop__button-favorite change"></button>
-                    @else
-                    <button type="submit" class="shop__button-favorite"></button>
-                    @endif
-                </form>
+                @if($shop->checkFavorite())
+                <button class="shop__button-favorite change" data-shop-id="{{ $shop['id'] }}"></button>
+                @else
+                <button class="shop__button-favorite" data-shop-id="{{ $shop['id'] }}"></button>
+                @endif
+                @if(Auth::check())
+                <input type="hidden" id="user_id" value="{{ $user['id'] }}">
+                @endif
             </div>
         </div>
     </div>
@@ -36,25 +35,38 @@
 
 
 </div>
-<!--
 <script>
-    $(".shop__button-favorite").on("click", function() {
-        $(this).toggleClass("change");
+    window.addEventListener('DOMContentLoaded', function() {
+        $(function() {
+            let favorite = $('.shop__button-favorite');
+            let favoriteShopId;
+
+            favorite.on('click', function() {
+                // ログインしていない場合はログイン画面へ遷移
+                if (!($('#user_id').length)) {
+                    window.location.href = "/login";
+                }
+
+                let $this = $(this);
+                favoriteShopId = $this.data('shop-id');
+                $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: '/favorite',
+                        method: "POST",
+                        data: {
+                            'shop_id': favoriteShopId,
+                        },
+                    })
+                    .done(function() {
+                        $this.toggleClass('change');
+                    })
+                    .fail(function() {
+                        console.log('fail');
+                    })
+            })
+        })
     });
 </script>
--->
 @endsection
-
-<!--
-@if(Auth::check())
-    <h2>
-        さんお疲れ様です
-    </h2>
-    @endif
-    main page
-
-    <form class="form" action="/logout" method="post">
-        @csrf
-        <button class="header-nav__button">ログアウト</button>
-    </form>
--->

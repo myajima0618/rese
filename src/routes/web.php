@@ -23,4 +23,7 @@ Route::get('/thanks', function () {
 
 Route::get('/', [ShopController::class, 'index']);
 
+Route::get('/search', [ShopController::class, 'search']);
+
 Route::post('/favorite', [FavoriteController::class, 'store']);
+Route::delete('/favorite', [FavoriteController::class, 'delete']);
