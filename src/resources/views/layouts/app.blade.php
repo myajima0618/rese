@@ -95,7 +95,7 @@
                         <span class="material-icons-outlined">
                             search
                         </span>
-                        <input type="text" name="keyword" placeholder="Search..." value="{{ $param['keyword'] }}" onchange="this.form.submit()">
+                        <input type="text" name="keyword" placeholder="Search..." value="{{ isset($param['keyword']) ? $param['keyword'] : '' }}" onchange="this.form.submit()">
                     </div>
                 </form>
             </div>
