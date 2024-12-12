@@ -24,6 +24,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <!-- FontAwesome -->
     <script src="https://kit.fontawesome.com/2bd9a63489.js" crossorigin="anonymous"></script>
+    <!-- dayjs -->
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js"></script>
 </head>
 <script>
     $(function() {

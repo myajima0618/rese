@@ -19,7 +19,7 @@
                 </p>
             </div>
             <div class="shop__button">
-                <a href="/detail" class="shop__button-detail">詳しく見る</a>
+                <a href="/detail/{{ $shop['id'] }}" class="shop__button-detail">詳しく見る</a>
                 @if($shop->checkFavorite())
                 <button class="shop__button-favorite change" data-shop-id="{{ $shop['id'] }}"></button>
                 @else

@@ -171,7 +171,8 @@ select:focus {
 =============================*/
 .register__content,
 .thanks__content,
-.login__content {
+.login__content,
+.done__content {
     min-height: 80vh;
     display: flex;
     justify-content: center;
@@ -198,3 +199,4 @@ select:focus {
 .search__content {
     visibility: hidden;
 }
+

@@ -52,4 +52,43 @@ class ShopController extends Controller
         return view('index', compact('areas', 'categories', 'shops', 'user', 'param'));
     }
 
+    public function detail($shop_id)
+    {
+        $shop = Shop::with('area', 'category')
+            ->find($shop_id);
+
+        // 現在認証しているユーザー
+        $user = Auth::user();
+
+        // 時間と人数の配列作成
+        $times = [
+            '12:00' => '12:00',
+            '13:00' => '13:00',
+            '14:00' => '14:00',
+            '15:00' => '15:00',
+            '16:00' => '16:00',
+            '17:00' => '17:00',
+            '18:00' => '18:00',
+            '19:00' => '19:00',
+            '20:00' => '20:00',
+            '21:00' => '21:00',
+        ];
+
+        $numbers = [
+            '1' => '1人',
+            '2' => '2人',
+            '3' => '3人',
+            '4' => '4人',
+            '5' => '5人',
+            '6' => '6人',
+            '7' => '7人',
+            '8' => '8人',
+            '9' => '9人',
+            '10' => '10人',
+        ];
+
+
+
+        return view('detail', compact('shop', 'user', 'times', 'numbers'));
+    }
 }
