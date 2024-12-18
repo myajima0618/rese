@@ -22,11 +22,9 @@ class ReservationController extends Controller
             return view('auth.login');
         } else {
             $params = $request->only(['user_id', 'shop_id', 'time', 'number']);
-            print_r($params);
 
             // 日付をY-m-d式に変換
             $date = CarbonImmutable::parse($request->date)->format('Y-m-d');
-            print_r($date);
 
             // 登録するアイテム
             $items = [

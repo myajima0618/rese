@@ -114,7 +114,11 @@
                     </tr>
                     <tr class="reservation-box__selected-row">
                         <td class="reservation-box__selected-heading">Date</td>
-                        <td class="reservation-box__selected-item" id="selected_date"></td>
+                        <td class="reservation-box__selected-item" id="selected_date">
+                            @if(old('date'))
+                            {{ old('date') }}
+                            @endif
+                        </td>
                     </tr>
                     <tr class="reservation-box__selected-row">
                         <td class="reservation-box__selected-heading">Time</td>

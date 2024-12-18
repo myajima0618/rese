@@ -56,7 +56,7 @@
                             @csrf
                             <li class="gnav-menu__item"><a onclick="document.logout.submit();">Logout</a></li>
                         </form>
-                        <li class="gnav-menu__item"><a href="">Mypage</a></li>
+                        <li class="gnav-menu__item"><a href="/mypage">Mypage</a></li>
                         @else
                         <li class="gnav-menu__item"><a href="/register">Registration</a></li>
                         <li class="gnav-menu__item"><a href="/login">Login</a></li>
