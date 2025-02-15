@@ -38,6 +38,7 @@
                     <input type="password" name="password" placeholder="Password">
                 </div>
                 <div class="register-form__button">
+                    <input type="hidden" name="role" value="1">
                     <button type="submit" class="register-form__button-submit">登録</button>
                 </div>
             </div>

@@ -8,6 +8,9 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Category;
 use App\Models\Favorite;
+use App\Models\Reservation;
+use App\Models\Review;
+use Carbon\CarbonImmutable;
 
 class ShopController extends Controller
 {
@@ -32,7 +35,7 @@ class ShopController extends Controller
             ->CategorySearch($category_id)
             ->KeywordSearch($keyword)
             ->get();
-        
+
         // リクエストパラメータを配列に格納
         $param = [];
         $param['area_id'] = $area_id;
@@ -52,15 +55,63 @@ class ShopController extends Controller
         return view('index', compact('areas', 'categories', 'shops', 'user', 'param'));
     }
 
+    // 飲食店詳細ページ表示
     public function detail($shop_id)
     {
         $shop = Shop::with('area', 'category')
             ->find($shop_id);
-
         // 現在認証しているユーザー
         $user = Auth::user();
 
-        // 時間と人数の配列作成
+        // 時間と人数の配列取得
+        $times = $this->getTimeArray();
+        $numbers = $this->getNumberArray();
+
+        return view('detail', compact('shop', 'user', 'times', 'numbers'));
+    }
+
+    // マイページから飲食店予約情報変更ページ表示
+    public function edit($shop_id, Request $request)
+    {
+        $shop = Shop::with('area', 'category')
+            ->find($shop_id);
+        // 現在認証しているユーザー
+        $user = Auth::user();
+        // 時間配列取得
+        $times = $this->getTimeArray();
+        // 人数配列取得
+        $numbers = $this->getNumberArray();
+
+        // 予約情報取得
+        $reservation = Reservation::where('id', $request->id)->get();
+        // format change
+        $time = new CarbonImmutable($reservation[0]['time']);
+        $reservation[0]['time'] = $time->format('H:i');
+        $reservation = $reservation[0];
+
+        $today = new CarbonImmutable();
+        $date = new CarbonImmutable($reservation['date']);
+        if($date->lt($today)){
+            $reservation['date_check'] = true;
+        } else {
+            $reservation['date_check'] = false;
+        }
+
+        // レビュー情報取得
+        $review = Review::where('reservation_id', $request->id)->get();
+        // レビュー情報が存在したら
+        if(!empty($review)) {
+            foreach($review as $value) {
+                $review = $value;
+            }
+        }
+        
+        return view('detail', compact('shop', 'user', 'times', 'numbers', 'reservation', 'review'));
+
+    }
+
+    private function getTimeArray()
+    {
         $times = [
             '12:00' => '12:00',
             '13:00' => '13:00',
@@ -72,8 +123,13 @@ class ShopController extends Controller
             '19:00' => '19:00',
             '20:00' => '20:00',
             '21:00' => '21:00',
+            '22:00' => '22:00',
         ];
+        return $times;
+    }
 
+    private function getNumberArray()
+    {
         $numbers = [
             '1' => '1人',
             '2' => '2人',
@@ -86,9 +142,6 @@ class ShopController extends Controller
             '9' => '9人',
             '10' => '10人',
         ];
-
-
-
-        return view('detail', compact('shop', 'user', 'times', 'numbers'));
+        return $numbers;
     }
 }

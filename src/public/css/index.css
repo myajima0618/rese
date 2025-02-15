@@ -161,4 +161,37 @@
     vertical-align: middle;
 }
 
+/* スマートフォン・タブレット用CSS */
+@media screen and (max-width: 768px) {
+    .shop-list__wrapper {
+        margin: 10px auto;
+        width: 85%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .shop__card {
+        width: 40vmin;
+        height: 40vmin;
+        border-radius: 10px;
+        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
+        background: var(--white);
+    }
+
+    .shop__text h3 {
+        margin: 10px 0;
+    }
+
+    .shop__text p {
+        margin: 5px 0 15px 0;
+    }
+    .shop__button {
+        margin-top: 25px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
 

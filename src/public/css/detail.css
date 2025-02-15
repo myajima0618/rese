@@ -80,7 +80,7 @@
 .reservation-box {
     padding: 10px 20px;
     width: 35%;
-    height: 87vmin;
+    height: 90vmin;
     background-color: var(--main-color);
     position: absolute;
     top: 2em;
@@ -89,6 +89,15 @@
     border-radius: 5px;
     box-shadow: 3px 3px 3px 0 rgba(0, 0, 0, .4);
     color: var(--white);
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.reservation-box__header h3 {
+    margin: 10px 0;
 }
 
 .reservation-box__input-date {
@@ -138,21 +147,9 @@
     appearance: none;
 }
 
-/* プルダウンの矢印 */
-.polygon {
-    position: absolute;
-    top: 8px;
-    right: 7px;
-    width: 12px;
-    height: 12px;
-    background-color: #e2e2e2;
-    clip-path: polygon(100% 0%, 85% 50%, 100% 100%, 30% 50%);
-    transform: rotate(-90deg);
-    pointer-events: none;
-}
-
 .reservation-box__selected {
-    margin: 10px 0;
+    width: 100%;
+    margin: 0 0 5px;
     padding: 10px 0;
     border-radius: 5px;
     background-color: #4D7FFF;
@@ -201,4 +198,122 @@
 .reservation-box__error {
     font-size: 12px;
     color: yellow;
+}
+
+/* 評価投稿エリア */
+.reservation-box__review {
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #4D7FFF;
+}
+
+.review-text {
+    font-size: 14px;
+}
+
+.reservation-box__review-rating {
+    margin: 5px 0;
+    align-items: center;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.rating__input {
+    display: none;
+}
+
+.rating__label {
+    padding: 0 10px;
+    color: #ccc;
+    cursor: pointer;
+    font-size: 22px;
+    position: relative;
+    transition: color 0.3s;
+}
+
+.rating__label:hover,
+.rating__label:hover~.rating__label,
+.rating__input:checked~.rating__label {
+    /* 「~」でホバー時を動的に、チェック時にそれ以下の数字をもつスターの色も変化 */
+    color: yellow;
+}
+
+.star {
+    color: yellow;
+}
+
+.reservation-box__review-comment {
+    margin-top: 0;
+}
+
+.reservation-box__review-comment p {
+    margin: 0;
+}
+
+.reservation-box__review-comment textarea {
+    width: 100%;
+    height: 70px;
+}
+
+/* スマートフォン・タブレット用CSS */
+@media screen and (max-width: 768px) {
+    /* 店舗詳細エリア */
+    .detail-box {
+        width: 58%;
+        height: 45vmin;
+        color: #000;
+    }
+
+    .detail-box__image {
+        margin-bottom: 20px;
+        width: 100%;
+    }
+
+    .detail-box__image img {
+        width: 100%;
+    }
+
+    .detail-box__tag {
+        margin: 20px 0;
+        font-size: 1em;
+    }
+
+    .detail-box__text p {
+        margin: 0;
+        font-size: 0.9em;
+    }
+
+    /* 予約登録エリア */
+    .reservation-box {
+        padding: 10px 20px 60px;
+        width: 32%;
+        height: auto;
+        top: 8.5em;
+        right: 4em;
+    }
+
+    .reservation-box__input-date {
+        width: 75%;
+    }
+
+    .reservation-box__selected-heading {
+        width: 40%;
+    }
+
+    .reservation-box__button {
+        height: 50px;
+    }
+
+    /* 評価投稿エリア */
+    .review-text {
+        font-size: 12px;
+    }
+
+    .rating__label {
+        padding: 0 5px;
+    }
+
 }

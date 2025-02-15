@@ -52,11 +52,21 @@
                     <ul class="gnav-menu">
                         <li class="gnav-menu__item"><a href="/">Home</a></li>
                         @if(Auth::check())
+                        @if(!empty($user['role']) && $user['role'] == '99')
+                        <li class="gnav-menu__item"><a href="/admin/register-owner">Registration(Shop Owner)</a></li>
+                        @elseif(!empty($user['role']) && $user['role'] == '10')
+                        <li class="gnav-menu__item"><a href="/owner">Shop Management</a></li>
+                        <li class="gnav-menu__item"><a href="/owner/register-shop">Registration(Shop)</a></li>
+                        <!--
+                        <li class="gnav-menu__item"><a href="/owner/reservation/999">Reservation</a></li>
+-->
+                        @else
+                        <li class="gnav-menu__item"><a href="/mypage">Mypage</a></li>
+                        @endif
                         <form action="/logout" method="post" name="logout">
                             @csrf
                             <li class="gnav-menu__item"><a onclick="document.logout.submit();">Logout</a></li>
                         </form>
-                        <li class="gnav-menu__item"><a href="/mypage">Mypage</a></li>
                         @else
                         <li class="gnav-menu__item"><a href="/register">Registration</a></li>
                         <li class="gnav-menu__item"><a href="/login">Login</a></li>
@@ -68,6 +78,7 @@
             <div class="header__title">
                 <a href="/">Rese</a>
             </div>
+            <!-- 飲食店検索 -->
             <div class="search__content">
                 <form action="/" method="get" class="search-form">
                     @csrf

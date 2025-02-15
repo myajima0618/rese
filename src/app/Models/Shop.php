@@ -10,6 +10,20 @@ class Shop extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'shop_name',
+        'area_id',
+        'category_id',
+        'user_id',
+        'description',
+        'image_url',
+    ];
+
     public function area()
     {
         return $this->belongsTo('App\Models\Area');
@@ -24,6 +38,17 @@ class Shop extends Model
     {
         return $this->hasMany('App\Models\Favorite');
     }
+
+    public function reservations()
+    {
+        return $this->hasMany('App\Models\Reservation');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\Models\Review');
+    }
+
 
     /**********************************
         お気に入り登録されているかどうか調べる    

@@ -16,6 +16,9 @@ use Laravel\Fortify\Fortify;
 use App\Http\Controllers\RegisterController;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
 
+use App\Http\Requests\NewLoginRequest;
+use Laravel\Fortify\Http\Requests\LoginRequest;
+
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
@@ -27,6 +30,7 @@ class FortifyServiceProvider extends ServiceProvider
             RegisteredUserController::class,
             RegisterController::class
         );
+
     }
 
     /**

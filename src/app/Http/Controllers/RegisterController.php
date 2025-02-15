@@ -11,7 +11,6 @@ use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Fortify\Contracts\RegisterResponse;
 use Laravel\Fortify\Fortify;
 
-
 class RegisterController extends Controller
 {
     /**
@@ -52,6 +51,7 @@ class RegisterController extends Controller
      */
     public function store(Request $request,
                             CreatesNewUsers $creator) {
+
         if (config('fortify.lowercase_usernames')) {
             $request->merge([
                 Fortify::username() => Str::lower($request->{Fortify::username()}),
@@ -62,4 +62,5 @@ class RegisterController extends Controller
 
         return redirect('thanks');
     }
+
 }

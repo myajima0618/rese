@@ -55,7 +55,7 @@ return [
         'string'  => ':attributeは、:value文字以上でなければなりません。',
         'array'   => ':attributeの項目数は、:value個以上でなければなりません。',
     ],
-    'image'                => ':attributeには、画像を指定してください。',
+    'image'                => '画像を指定してください。',
     'in'                   => '選択された:attributeは、有効ではありません。',
     'in_array'             => ':attributeが:otherに存在しません。',
     'integer'              => ':attributeには、整数を指定してください。',
@@ -78,10 +78,10 @@ return [
     'max'                  => [
         'numeric' => ':attributeには、:max以下の数字を指定してください。',
         'file'    => ':attributeには、:max KB以下のファイルを指定してください。',
-        'string'  => ':attributeは、:max文字以下にしてください。',
+        'string'  => ':max文字以下にしてください。',
         'array'   => ':attributeの項目は、:max個以下にしてください。',
     ],
-    'mimes'                => ':attributeには、:valuesタイプのファイルを指定してください。',
+    'mimes'                => ':valuesの画像ファイルを指定してください。',
     'mimetypes'            => ':attributeには、:valuesタイプのファイルを指定してください。',
     'min'                  => [
         'numeric' => ':attributeには、:min以上の数字を指定してください。',

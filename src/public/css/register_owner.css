@@ -1,0 +1,59 @@
+.owner-register__header {
+    margin: 0 auto;
+    width: 85%;
+    text-align: right;
+    color: #000;
+    font-weight: bold;
+}
+
+.owner-register__wrapper {
+    height: 80vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.owner-register__form {
+    width: 40%;
+    height: 80%;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
+    position: relative;
+}
+
+.register-form__input-items {
+    margin: 10px 0;
+    height: 30px;
+    width: 100%;
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-form__input-items div {
+    width: 20%;
+    text-align: right;
+}
+
+.register-form__input-items input {
+    border-radius: 5px;
+    padding: 3px 6px;
+    width: 75%;
+    border: none;
+    line-height: 1.5;
+    font-size: 16px;
+}
+
+.register-form__error {
+    margin: 0;
+    min-height: 15px;
+    font-size: 13px;
+    color: yellow;
+    display: flex;
+    justify-content: space-between;
+}
+
+.error__message {
+    width: 75%;
+}

@@ -1,0 +1,90 @@
+.shop-register__header {
+    margin: 0 auto;
+    width: 85%;
+    text-align: right;
+    color: #000;
+    font-weight: bold;
+}
+
+.shop-register__wrapper {
+    margin: 0 auto;
+    width: 85%;
+    height: 85vmin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shop-register__form {
+    width: 50%;
+    height: 80%;
+    background-color: var(--main-color);
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
+    position: relative;
+}
+
+.register-form__input {
+    margin: 5px 0;
+    height: auto;
+    width: 100%;
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-form__input-label {
+    width: 25%;
+    text-align: right;
+}
+
+.register-form__input-items {
+    padding: 1px 0;
+    width: 70%;
+    display: flex;
+    position: relative;
+}
+
+.register-form__input-items input,
+.register-form__input-items select,
+.register-form__input-items textarea {
+    margin: 0;
+    padding: 3px 10px;
+    width: 100%;
+    border-radius: 3px;
+    border: none;
+    line-height: 1.5;
+}
+
+.register-form__input-items select {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.register-form__input-items textarea {
+    height: 3em;
+}
+
+.register-form__input-items--button {
+    padding: 1px 0;
+    width: 70%;
+    display: flex;
+}
+
+.register-form__error {
+    margin: 0;
+    min-height: 15px;
+    font-size: 13px;
+    color: yellow;
+    display: flex;
+    justify-content: space-between;
+}
+
+.error__message {
+    width: 70%;
+}
+
+/* プルダウンの矢印 */
+.polygon {
+    top: 10px;
+}

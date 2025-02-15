@@ -8,10 +8,20 @@
 <div class="done__content">
     <div class="done__wrapper">
         <div class="done__message">
-            <h3>ご予約ありがとうございます</h3>
+            @if(session('message'))
+            <h3>
+                {{ session('message')}}
+            </h3>
+            @endif
         </div>
         <div class="back__button">
-            <a href="/">戻る</>
+            @if(session('role') && session('role') == 99)
+            <a href="/admin/register-owner">戻る</>
+            @elseif(session('role') && session('role') == 10)
+            <a href="/owner">戻る</>
+            @else
+            <a href="/mypage">戻る</>
+            @endif
         </div>
     </div>
 </div>

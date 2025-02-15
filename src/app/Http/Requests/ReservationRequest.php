@@ -37,6 +37,7 @@ class ReservationRequest extends FormRequest
         return [
             'date.date_format' => 'Y/m/dまたはY-m-d形式で入力してください。',
             'date.after_or_equal' => '本日以降の日付で入力してください。',
+            'date.regex' => '半角文字で入力してください',
             'time.date_format' => 'H:i形式で入力してください。',
             'number.string' => '文字列で入力してください。'
         ];
