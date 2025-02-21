@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Auth\Events\Registered;
 
 class AdminController extends Controller
 {
@@ -46,12 +47,14 @@ class AdminController extends Controller
             ]
         ])->validate();
 
-        User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
             'role' => '10',
         ]);
+
+        event(new Registered($user));
 
         return redirect('/done')->with('role', $user['role'])->with('message', '店舗代表者の登録が完了しました。');
 

@@ -9,6 +9,8 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +34,7 @@ Route::get('/detail/{shop_id}', [ShopController::class, 'detail']);
 Route::get('/search', [ShopController::class, 'search']);
 
 // 認証されていない状態でアクセスするとログイン画面にリダイレクトされる
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'verified')->group(function () {
 
     Route::post('/favorite', [FavoriteController::class, 'store']);
 
@@ -61,3 +63,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/owner/reservation/{shop_id}', [OwnerController::class, 'showReservation']);
 
 });
+
+// Email Verification
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+// メール確認通知再送信
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'ご登録のメールアドレス宛に再送信しました。');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
