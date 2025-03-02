@@ -32,6 +32,11 @@ class ReservationRequest extends FormRequest
         ];
     }
 
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
     public function messages()
     {
         return [
@@ -42,6 +47,7 @@ class ReservationRequest extends FormRequest
             'number.string' => '文字列で入力してください。'
         ];
     }
+
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {

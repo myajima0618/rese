@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
 {
+    /*************************** */
+    /* お気に入り登録・削除処理
+    /*************************** */
     public function store(Request $request)
     {
         // ログイン中のユーザー

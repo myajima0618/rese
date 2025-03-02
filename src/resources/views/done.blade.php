@@ -16,7 +16,7 @@
         </div>
         <div class="back__button">
             @if(session('role') && session('role') == 99)
-            <a href="/admin/register-owner">戻る</>
+            <a href="/">戻る</>
             @elseif(session('role') && session('role') == 10)
             <a href="/owner">戻る</>
             @else

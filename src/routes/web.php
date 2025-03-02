@@ -53,6 +53,8 @@ Route::middleware('auth', 'verified')->group(function () {
 
     Route::get('/admin/register-owner', [AdminController::class, 'createOwner']);
     Route::post('/admin/register-owner', [AdminController::class, 'storeOwner']);
+    Route::get('/admin/send-notification', [AdminController::class, 'createNotification']);
+    Route::post('/admin/send-notification', [AdminController::class, 'sendNotification']);
 
     Route::get('/owner', [OwnerController::class, 'index']);
     Route::get('/owner/register-shop', [OwnerController::class, 'createShop']);

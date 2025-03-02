@@ -1,4 +1,4 @@
-.owner-register__header {
+.notification__header {
     margin: 0 auto;
     width: 85%;
     text-align: right;
@@ -6,14 +6,15 @@
     font-weight: bold;
 }
 
-.owner-register__wrapper {
+.notification__wrapper {
     height: 80vmin;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.owner-register__form {
+.notification__form {
+    padding: 5px 10px;
     width: 40%;
     height: 80%;
     background-color: var(--main-color);
@@ -22,43 +23,36 @@
     position: relative;
 }
 
-.register-form__input-items {
+.notification-form__input-items {
     margin: 10px 0;
+    padding: 0 10px;
     height: 30px;
     width: 100%;
     color: var(--white);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
-.register-form__input-items div {
+.notification-form__input-items div {
     width: 20%;
     text-align: right;
 }
 
-.register-form__input-items input {
+.notification-form__input-items input, 
+.notification-form__input-items textarea {
     border-radius: 5px;
     padding: 3px 6px;
     width: 75%;
     border: none;
     line-height: 1.5;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.register-form__error {
-    margin: 0;
-    min-height: 15px;
-    font-size: 13px;
-    color: yellow;
-    display: flex;
-    justify-content: space-between;
+.notification-form__input-items textarea {
+    height: 13em;
 }
 
-.error__message {
-    width: 75%;
-}
-
-.register-form__button {
+.notification-form__button {
     width: 100%;
     height: 12%;
     position: absolute;
@@ -71,7 +65,7 @@
     align-items: center;
 }
 
-.register-form__button-submit {
+.notification-form__button-submit {
     width: 100%;
     height: 100%;
     border: none;
@@ -80,9 +74,22 @@
     color: var(--white);
 }
 
+.notification-form__error {
+    margin: 0;
+    min-height: 15px;
+    font-size: 13px;
+    color: yellow;
+    display: flex;
+    justify-content: space-between;
+}
+
+.error__message {
+    width: 75%;
+}
+
 /* スマートフォン・タブレット用CSS */
 @media screen and (max-width: 768px) {
-    .owner-register__form {
+    .notification__form {
         width: 70%;
         height: 70%;
     }

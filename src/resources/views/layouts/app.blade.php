@@ -54,12 +54,10 @@
                         @if(Auth::check())
                         @if(!empty($user['role']) && $user['role'] == '99')
                         <li class="gnav-menu__item"><a href="/admin/register-owner">Registration(Shop Owner)</a></li>
+                        <li class="gnav-menu__item"><a href="/admin/send-notification">Send Notification</a></li>
                         @elseif(!empty($user['role']) && $user['role'] == '10')
                         <li class="gnav-menu__item"><a href="/owner">Shop Management</a></li>
                         <li class="gnav-menu__item"><a href="/owner/register-shop">Registration(Shop)</a></li>
-                        <!--
-                        <li class="gnav-menu__item"><a href="/owner/reservation/999">Reservation</a></li>
--->
                         @else
                         <li class="gnav-menu__item"><a href="/mypage">Mypage</a></li>
                         @endif

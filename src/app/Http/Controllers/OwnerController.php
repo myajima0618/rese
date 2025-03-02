@@ -137,6 +137,9 @@ class OwnerController extends Controller
 
     }
 
+    /*************************** */
+    /* 予約確認画面表示
+    /*************************** */
     public function showReservation($shop_id)
     {
         // ログイン中のユーザー

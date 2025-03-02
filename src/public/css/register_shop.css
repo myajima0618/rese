@@ -110,3 +110,20 @@
     font-size: 16px;
     color: var(--white);
 }
+
+/* スマートフォン・タブレット用CSS */
+@media screen and (max-width: 768px) {
+    .shop-register__header {
+        margin: 0 auto;
+        width: 85%;
+    }
+
+    .shop-register__form {
+        width: 70%;
+        height: 70%;
+        background-color: var(--main-color);
+        border-radius: 5px;
+        box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
+        position: relative;
+    }
+}
