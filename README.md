@@ -1,4 +1,4 @@
-# rese（リーズ）
+# Rese（リーズ）
 ある企業のグループ会社の飲食店予約サービス
 <img width="865" alt="Image" src="https://github.com/user-attachments/assets/52f1b8f4-2630-4c1e-b0b4-0c6e9185fc24" />
 
