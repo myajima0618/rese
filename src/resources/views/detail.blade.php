@@ -49,8 +49,14 @@
                 <h3>{{ $shop['shop_name'] }}</h3>
             </div>
         </div>
+        @php
+        $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
+        if (!File::exists($imagePath)) {
+        $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+        }
+        @endphp
         <div class="detail-box__image">
-            <img src="{{ asset('storage/' . $shop['image_url']) }}" alt="">
+            <img src="{{ asset($imagePath) }}" alt="">
         </div>
         <div class="detail-box__tag">
             #{{ $shop['area']['area_name'] }}　#{{ $shop['category']['category_name'] }}
@@ -205,11 +211,11 @@
                         @if(isset($reservation))
                         <button class="reservation-box__button-submit" @if(!empty($review['id'])) disabled @endif>
                             @if($reservation['date_check'])
-                                @if(isset($review['id']))
-                                レビュー投稿済み
-                                @else
-                                レビューを投稿する
-                                @endif
+                            @if(isset($review['id']))
+                            レビュー投稿済み
+                            @else
+                            レビューを投稿する
+                            @endif
                             @else
                             変更する
                             @endif
