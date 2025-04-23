@@ -7,15 +7,9 @@
 @section('content')
 <div class="shop-list__wrapper">
     @foreach($shops as $shop)
-    @php
-        $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
-        if (!File::exists($imagePath)) {
-            $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
-        }
-    @endphp
     <div class="shop__card">
         <div class="shop__image">
-            <img src="{{ asset($imagePath) }}" alt="">
+            <img src="{{ asset($shop['image_path']) }}" alt="">
         </div>
         <div class="shop__info">
             <div class="shop__text">

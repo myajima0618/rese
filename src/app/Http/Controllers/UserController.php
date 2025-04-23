@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\Favorite;
 use App\Models\Shop;
 use App\Models\Reservation;
@@ -45,6 +46,13 @@ class UserController extends Controller
             $shop = Shop::with('area', 'category')
                             ->where('id', $favorite['shop_id'])
                             ->first();
+
+            $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
+            if (!File::exists($imagePath)) {
+                $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+            }
+            $shop['image_path'] = $imagePath;
+
             // お気に入り情報に紐づく飲食店情報を配列に入れる
             $favorite['shop_info'] = $shop;
         }

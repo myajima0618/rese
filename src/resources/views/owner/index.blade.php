@@ -18,7 +18,7 @@
         @foreach($shops as $shop)
         <div class="shop__card">
             <div class="shop__image">
-                <img src="{{ asset('storage/' . $shop['image_url']) }}" alt="">
+                <img src="{{ asset($shop['image_path']) }}" alt="">
             </div>
             <div class="shop__info">
                 <div class="shop__text">

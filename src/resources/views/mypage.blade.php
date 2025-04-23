@@ -63,7 +63,7 @@
                 @foreach($favorites as $favorite)
                 <div class="shop__card">
                     <div class="shop__image">
-                        <img src="{{ asset('storage/' . $favorite['shop_info']['image_url']) }}" alt="">
+                        <img src="{{ asset($favorite['shop_info']['image_path']) }}" alt="">
                     </div>
                     <div class="shop__info">
                         <div class="shop__text">

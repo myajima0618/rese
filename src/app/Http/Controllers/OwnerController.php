@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use App\Models\Area;
 use App\Models\Category;
 use App\Models\Shop;
@@ -30,6 +31,14 @@ class OwnerController extends Controller
         $shops = Shop::with('area', 'category')
                         ->where('user_id', $user['id'])
                         ->get();
+
+        foreach ($shops as $shop) {
+            $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
+            if (!File::exists($imagePath)) {
+                $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+            }
+            $shop['image_path'] = $imagePath;
+        }
 
         return view('owner.index', compact('user', 'shops', 'shop_areas', 'shop_categories')  );
     }
@@ -156,6 +165,9 @@ class OwnerController extends Controller
                             ->orderBy('time')
                             ->get();
 
+        // 店舗
+        $shop = Shop::find($shop_id);
+ 
         foreach($reservations as $reservation) {
             $reservation['time'] = CarbonImmutable::parse($reservation['time'])->format('H:i');
 
@@ -166,7 +178,7 @@ class OwnerController extends Controller
             }
         }
 
-        return view('owner.reservation', compact('user', 'reservations'));
+        return view('owner.reservation', compact('user', 'reservations', 'shop'));
     }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Category;
@@ -36,6 +37,14 @@ class ShopController extends Controller
             ->KeywordSearch($keyword)
             ->get();
 
+        foreach($shops as $shop){
+            $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
+            if (!File::exists($imagePath)) {
+                $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+            }
+            $shop['image_path'] = $imagePath;
+        }
+
         // リクエストパラメータを配列に格納
         $param = [];
         $param['area_id'] = $area_id;
@@ -60,6 +69,13 @@ class ShopController extends Controller
     {
         $shop = Shop::with('area', 'category')
             ->find($shop_id);
+
+        $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
+        if (!File::exists($imagePath)) {
+            $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+        }
+        $shop['image_path'] = $imagePath;
+
         // 現在認証しているユーザー
         $user = Auth::user();
 

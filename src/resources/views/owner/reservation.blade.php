@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="reservation-list__title">
-        <h3>予約一覧</h3>
+        <h3>予約一覧【{{ $shop['shop_name'] }}】</h3>
     </div>
     <div class="reservation-list__wrapper">
         <div class="reservation-list__back">

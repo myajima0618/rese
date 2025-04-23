@@ -49,14 +49,8 @@
                 <h3>{{ $shop['shop_name'] }}</h3>
             </div>
         </div>
-        @php
-        $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
-        if (!File::exists($imagePath)) {
-        $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
-        }
-        @endphp
         <div class="detail-box__image">
-            <img src="{{ asset($imagePath) }}" alt="">
+            <img src="{{ asset($shop['image_path']) }}" alt="">
         </div>
         <div class="detail-box__tag">
             #{{ $shop['area']['area_name'] }}　#{{ $shop['category']['category_name'] }}
