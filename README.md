@@ -62,7 +62,7 @@ phpMyAdmin：http://localhost:8080/
 ![Image](https://github.com/user-attachments/assets/1cd356fd-aa58-4e05-b197-38417fbc4cad)
 
 ## ER図
-![Image](https://github.com/user-attachments/assets/ba7c749f-c719-44f4-a2e9-42d1e94cda81)
+![Image](https://github.com/user-attachments/assets/db3e9aac-ec9f-4a1c-87e0-e435426f255a)
 
 ## 制限事項
 ・管理者権限のユーザーを登録する画面が存在しないため、シーダーファイルにてユーザー情報を追加するものとする。  
