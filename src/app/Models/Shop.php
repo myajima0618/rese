@@ -95,4 +95,12 @@ class Shop extends Model
             $query->where('shop_name', 'like', '%' . $keyword . '%');
         }
     }
+
+    /**********************************
+        Sort
+    /********************************** */
+    public function getAverageRatingAttribute()
+    {
+        return $this->reviews()->avg('rating');
+    }
 }

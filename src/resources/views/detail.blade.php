@@ -60,6 +60,57 @@
                 {{ $shop['description'] }}
             </p>
         </div>
+        @if(!empty($user['role']) && !empty($reservation['date_check']) && !empty($user_review['review_check']))
+        @if($user['role'] == 1)
+        <div class="detail-box__review">
+            <a href="/review/{{ $shop['id'] }}">口コミを投稿する</a>
+        </div>
+        @endif
+        @endif
+        <div class="detail-box__review-list">
+            <h4>全ての口コミ情報</h4>
+            <hr>
+            @if(!empty($user['role'] && !empty($reservation['date_check']) && empty($user_review['review_check'])))
+            @if($user['role'] == 1)
+            <div class="my-review__control">
+                <a href="/review/edit/{{ $shop['id'] }}">口コミを編集</a>
+                <a href="#" class="delete-review-link" data-review-id="{{ $user_review['id'] }}">口コミを削除</a>
+                <form class="delete-review__form" id="delete-review-form-{{ $user_review['id'] }}" action="/review/delete/{{ $user_review['id'] }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                </form>
+            </div>
+            @endif
+            @endif
+            <div class=" review-card__inner">
+                @foreach($all_reviews as $all_review)
+                <div class="review-card">
+                    <div class="review-card__control">
+                        @if(!empty($user['role']) && $user['role'] == 99)
+                        <a href="">口コミを削除</a>
+                        @endif
+                    </div>
+                    <div class="review-card__rating">
+                        @for ($i = 1; $i <= 5; $i++)
+                            @if($i <=$all_review['rating'])
+                            <label class="rating-card__label star"><i class="fa-solid fa-star"></i></label>
+                            @else
+                            <label class="rating-card__label "><i class="fa-solid fa-star"></i></label>
+                            @endif
+                            @endfor
+                    </div>
+                    <div class="review-card__comment">
+                        <p>
+                            {{ $all_review['comment'] }}
+                        </p>
+                    </div>
+                    <div class="review-card__image">
+                        <img src="{{ asset($all_review['review_image_path']) }}" alt="">
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
     </div>
     <div class="reservation-box">
         @if(isset($reservation))
@@ -227,4 +278,19 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteLinks = document.querySelectorAll('.delete-review-link');
+
+        deleteLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const reviewId = this.dataset.reviewId;
+                if (confirm('本当に削除しますか？')) {
+                    document.getElementById(`delete-review-form-${reviewId}`).submit();
+                }
+            });
+        });
+    });
+</script>
 @endsection

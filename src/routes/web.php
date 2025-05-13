@@ -11,7 +11,6 @@ use App\Http\Controllers\OwnerController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,6 +49,12 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/detail/reserve-edit/{shop_id}', [ShopController::class, 'edit']);
 
     Route::post('review', [ReviewController::class, 'store']);
+
+    Route::get('review/{shop_id}', [ReviewController::class, 'create']);
+    Route::post('review/register', [ReviewController::class, 'storeReview']);
+    Route::get('review/edit/{shop_id}', [ReviewController::class, 'editReview']);
+    Route::patch('review/update', [ReviewController::class, 'updateReview']);
+    Route::patch('review/delete/{review}', [ReviewController::class, 'destroyReview']);
 
     Route::get('/admin/register-owner', [AdminController::class, 'createOwner']);
     Route::post('/admin/register-owner', [AdminController::class, 'storeOwner']);

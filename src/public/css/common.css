@@ -210,6 +210,111 @@ select:focus {
 }
 
 /*=============================
+    shop card
+=============================*/
+.shop__card {
+    margin: 0 auto;
+    width: 38vmin;
+    height: 38vmin;
+    border-radius: 10px;
+    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
+    background: var(--white);
+}
+
+.shop__card:nth-of-type(4n) {
+    margin-right: 0;
+}
+
+.shop__image {
+    width: 100%;
+    height: 50%;
+}
+
+.shop__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 縦横比率変えないように */
+    border-radius: 10px 10px 0 0;
+}
+
+.shop__info {
+    padding: 0 15px;
+    height: 45%;
+}
+
+.shop__text {
+    color: #000;
+}
+
+.shop__name {
+    display: flex;
+    align-items: center;
+}
+
+.shop__rating {
+    margin-left: 3px;
+    display: flex;
+    align-items:start;
+}
+
+.shop-rating__star {
+    color: yellow;
+    font-size: .6em;
+}
+
+.shop-rating__score {
+    font-size: .5em;
+}
+
+.shop__text h3 {
+    margin: 10px 0 5px 0;
+}
+
+.shop__text p {
+    margin: 5px 0;
+    font-size: 12px;
+}
+
+.shop__button {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.shop__button a {
+    display: inline-block;
+}
+
+.shop__button-detail {
+    padding: 5px 10px;
+    font-size: 12px;
+    background-color: var(--main-color);
+    color: var(--white);
+    border-radius: 3px;
+}
+
+.shop__button-favorite {
+    content: "";
+    background: url(../image/icon_favorite_off.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+    border: none;
+}
+
+.shop__button-favorite.change {
+    content: "";
+    background: url(../image/icon_favorite_on.png);
+    background-size: cover;
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/*=============================
     other
 =============================*/
 .w100 {
@@ -234,4 +339,9 @@ select:focus {
     clip-path: polygon(100% 0%, 85% 50%, 100% 100%, 30% 50%);
     transform: rotate(-90deg);
     pointer-events: none;
+}
+
+/* font size */
+.fs08 {
+    font-size: 0.8em;
 }

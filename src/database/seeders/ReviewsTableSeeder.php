@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Reservation;
+use app\Models\Review;
 
-class ReservationsTableSeeder extends Seeder
+class ReviewsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class ReservationsTableSeeder extends Seeder
      */
     public function run()
     {
-        Reservation::factory(100)->create();
+
     }
 }

@@ -14,7 +14,9 @@ class Review extends Model
         'user_id',
         'shop_id',
         'rating',
-        'comment'
+        'comment',
+        'review_image',
+        'delete_flag'
     ];
 
     public function user()

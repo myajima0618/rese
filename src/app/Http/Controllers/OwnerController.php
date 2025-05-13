@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use App\Models\Area;
 use App\Models\Category;
 use App\Models\Shop;
@@ -28,14 +29,18 @@ class OwnerController extends Controller
         $shop_categories = Category::all();
 
         // ユーザーに紐づく店舗情報取得
-        $shops = Shop::with('area', 'category')
-                        ->where('user_id', $user['id'])
-                        ->get();
+        $shopsQuery = Shop::with('area', 'category');
+        $shops = $shopsQuery->leftJoin('reviews', 'shops.id', '=', 'reviews.shop_id')
+            ->select('shops.*', DB::raw('AVG(reviews.rating) as average_rating'))
+            ->where('shops.user_id', $user['id'])
+            ->groupBy('shops.id')
+            ->orderBy('shops.id') // 評価が同じ場合は店舗IDで安定ソート
+            ->get();
 
         foreach ($shops as $shop) {
             $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
             if (!File::exists($imagePath)) {
-                $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+                $imagePath = 'storage/shop/' . $shop['image_url']; // storageディレクトリのパス
             }
             $shop['image_path'] = $imagePath;
         }
@@ -81,7 +86,6 @@ class OwnerController extends Controller
                     Shop::create($items);
 
                     return redirect('/done')->with('role', $user['role'])->with('message', '飲食店の登録が完了しました。');
-                    //return back()->with('status', 'Image uploaded successfully!');
                 } else {
                     return back()->with('error', 'Image upload failed.'); // 保存に失敗した場合
                 }

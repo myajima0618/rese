@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Category;
@@ -29,18 +30,45 @@ class ShopController extends Controller
         $area_id = $request->area_id;
         $category_id = $request->category_id;
         $keyword = $request->keyword;
+        $sort = $request->sort;
 
-        // 飲食店情報取得
-        $shops = Shop::with('area', 'category')
+        // 飲食店情報取得クエリの初期化
+        $shopsQuery = Shop::with('area', 'category')
             ->AreaSearch($area_id)
             ->CategorySearch($category_id)
-            ->KeywordSearch($keyword)
-            ->get();
+            ->KeywordSearch($keyword);
 
-        foreach($shops as $shop){
+        // 並び替えロジック
+        switch ($sort) {
+            case 'random':
+                $shops = $shopsQuery->inRandomOrder()->get();
+                break;
+            case 'rating_desc':
+                $shops = $shopsQuery->leftJoin('reviews', 'shops.id', '=', 'reviews.shop_id')
+                    ->select('shops.*', DB::raw('AVG(reviews.rating) as average_rating'))
+                    ->groupBy('shops.id')
+                    ->orderByDesc('average_rating')
+                    ->orderBy('shops.id') // 評価が同じ場合は店舗IDで安定ソート
+                    ->get();
+                break;
+            case 'rating_asc':
+                $shops = $shopsQuery->leftJoin('reviews', 'shops.id', '=', 'reviews.shop_id')
+                    ->select('shops.*', DB::raw('AVG(reviews.rating) as average_rating'))
+                    ->groupBy('shops.id')
+                    ->orderByRaw('CASE WHEN average_rating IS NULL THEN 1 ELSE 0 END ASC') // 評価なしを最後に
+                    ->orderBy('average_rating')
+                    ->orderBy('shops.id') // 評価が同じ場合は店舗IDで安定ソート
+                    ->get();
+                break;
+            default:
+                $shops = $shopsQuery->get(); // デフォルトの並び順 (現在の取得順を維持)
+                break;
+        }
+
+        foreach ($shops as $shop) {
             $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
             if (!File::exists($imagePath)) {
-                $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+                $imagePath = 'storage/shop/' . $shop['image_url']; // storageディレクトリのパス
             }
             $shop['image_path'] = $imagePath;
         }
@@ -50,6 +78,7 @@ class ShopController extends Controller
         $param['area_id'] = $area_id;
         $param['category_id'] = $category_id;
         $param['keyword'] = $keyword;
+        $param['sort'] = $sort;
 
         if (isset($user)) {
             // ユーザーに紐づくお気に入り情報取得
@@ -60,7 +89,6 @@ class ShopController extends Controller
                 $shop['favorite'] = $favorite;
             }
         }
-
         return view('index', compact('areas', 'categories', 'shops', 'user', 'param'));
     }
 
@@ -72,18 +100,99 @@ class ShopController extends Controller
 
         $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
         if (!File::exists($imagePath)) {
-            $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+            $imagePath = 'storage/shop/' . $shop['image_url']; // storageディレクトリのパス
         }
         $shop['image_path'] = $imagePath;
-
-        // 現在認証しているユーザー
-        $user = Auth::user();
 
         // 時間と人数の配列取得
         $times = $this->getTimeArray();
         $numbers = $this->getNumberArray();
 
-        return view('detail', compact('shop', 'user', 'times', 'numbers'));
+        // 口コミ全件取得
+        $all_reviews = Review::where('shop_id', $shop_id)
+            ->whereNull('delete_flag')
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        foreach ($all_reviews as $all_review) {
+            $reviewImagePath = 'image/' . $all_review['review_image']; // publicディレクトリのパス
+            if (!File::exists($reviewImagePath)) {
+                $reviewImagePath = 'storage/' . $all_review['review_image']; // storageディレクトリのパス
+                if (!File::exists($reviewImagePath)) {
+                    $reviewImagePath = 'https://placehold.jp/500x300.png?text=No Image';
+                }
+            }
+
+            $all_review['review_image_path'] = $reviewImagePath;
+        }
+
+        // 現在認証しているユーザー
+        $user = Auth::user();
+        $user_review = null; // 初期化
+
+        // ログインしている場合
+        if ($user) {
+            $review = null; // 初期化
+            // ログインしているユーザーの権限が店舗代表者または管理者だった場合
+            if ($user['role'] == 10 || $user['role'] == 99) {
+                // 何も処理を取得処理を行わずview表示
+                return view('detail', compact('shop', 'user', 'times', 'numbers', 'all_reviews'));
+            }
+            // 予約情報取得
+            $reservation = Reservation::where('user_id', $user['id'])
+                ->where('shop_id', $shop_id)
+                ->orderBy('date', 'DESC')
+                ->first();
+
+            if ($reservation) {
+                // format change
+                $time = new CarbonImmutable($reservation['time']);
+                $reservation['time'] = $time->format('H:i');
+
+                $today = new CarbonImmutable();
+                $date = new CarbonImmutable($reservation['date'] . $reservation['time']);
+
+                // 取得した予約情報の予約日時が今日よりも過去だったら
+                if ($date->lt($today)) {
+                    $reservation['date_check'] = true;
+                } else {
+                    $reservation['date_check'] = false;
+                }
+
+                // レビュー情報取得
+                $review = Review::where('reservation_id', $reservation['id'])->get();
+                $firstReview = null; // 初期化
+
+                // レビュー情報が存在したら
+                if (!empty($review)) {
+                    foreach ($review as $value) {
+                        $firstReview = $value;
+                    }
+                    $review = $firstReview;
+                } else {
+                    $review = null;
+                }
+
+                // ログイン中のユーザーの口コミ情報取得
+                $user_review = Review::where('shop_id', $shop_id)
+                    ->where('user_id', $user['id'])
+                    ->orderBy('updated_at', 'DESC')
+                    ->first();
+
+                // 口コミの登録がなかったら
+                if (is_null($user_review)) {
+                    $user_review['review_check'] = true;
+                // 口コミ登録あるが削除されている場合
+                } elseif (!is_null($user_review) && $user_review['delete_flag'] == 1) {
+                    $user_review['review_check'] = true;
+                } else {
+                    $user_review['review_check'] = false;
+                }
+            }
+            return view('detail', compact('shop', 'user', 'times', 'numbers', 'reservation', 'review', 'user_review', 'all_reviews'));
+        } else {
+            return view('detail', compact('shop', 'times', 'numbers', 'user_review', 'all_reviews'));
+        }
     }
 
     // マイページから飲食店予約情報変更ページ表示
@@ -91,8 +200,34 @@ class ShopController extends Controller
     {
         $shop = Shop::with('area', 'category')
             ->find($shop_id);
+
+        $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
+        if (!File::exists($imagePath)) {
+            $imagePath = 'storage/shop/' . $shop['image_url']; // storageディレクトリのパス
+        }
+        $shop['image_path'] = $imagePath;
+
+        // 口コミ全件取得
+        $all_reviews = Review::where('shop_id', $shop_id)
+            ->whereNull('delete_flag')
+            ->orderBy('updated_at', 'DESC')
+            ->get();
+
+        foreach ($all_reviews as $all_review) {
+            $reviewImagePath = 'image/' . $all_review['review_image']; // publicディレクトリのパス
+            if (!File::exists($reviewImagePath)) {
+                $reviewImagePath = 'storage/' . $all_review['review_image']; // storageディレクトリのパス
+                if (!File::exists($reviewImagePath)) {
+                    $reviewImagePath = 'https://placehold.jp/500x300.png?text=No Image';
+                }
+            }
+
+            $all_review['review_image_path'] = $reviewImagePath;
+        }
+
         // 現在認証しているユーザー
         $user = Auth::user();
+        $user_review= null; // 初期化
         // 時間配列取得
         $times = $this->getTimeArray();
         // 人数配列取得
@@ -107,23 +242,37 @@ class ShopController extends Controller
 
         $today = new CarbonImmutable();
         $date = new CarbonImmutable($reservation['date']);
-        if($date->lt($today)){
+        if ($date->lt($today)) {
             $reservation['date_check'] = true;
         } else {
             $reservation['date_check'] = false;
         }
 
+        // ログイン中のユーザーの口コミ情報取得
+        $user_review = Review::where('shop_id', $shop_id)
+            ->where('user_id', $user['id'])
+            ->orderBy('updated_at', 'DESC')
+            ->first();
+
+        // 口コミの登録がなかったら
+        if (is_null($user_review)) {
+            $user_review['review_check'] = true;
+        // 口コミ登録あるが削除されている場合
+        } elseif (!is_null($user_review) && $user_review['delete_flag'] == 1) {
+            $user_review['review_check'] = true;
+        } else {
+            $user_review['review_check'] = false;
+        }
         // レビュー情報取得
         $review = Review::where('reservation_id', $request->id)->get();
         // レビュー情報が存在したら
-        if(!empty($review)) {
-            foreach($review as $value) {
+        if (!empty($review)) {
+            foreach ($review as $value) {
                 $review = $value;
             }
         }
-        
-        return view('detail', compact('shop', 'user', 'times', 'numbers', 'reservation', 'review'));
 
+        return view('detail', compact('shop', 'user', 'times', 'numbers', 'reservation', 'review', 'user_review', 'all_reviews'));
     }
 
     private function getTimeArray()

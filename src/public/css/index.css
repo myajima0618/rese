@@ -13,11 +13,23 @@
 .search__content {
     margin: 0 0 0 auto;
     padding: 10px;
-    width: 50%;
+    width: 70%;
     visibility: visible;
     border-radius: 5px;
     background-color: var(--white);
     box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
+}
+
+.sort__area {
+    width: 40%;
+    border-right: 1px solid #E2E2E2;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.sort__area label {
+    font-size: .7em;
+    color: #000;
 }
 
 .search__area,
@@ -42,6 +54,16 @@
     pointer-events: none;
 }
 
+.sort__area select {
+    padding-left: 10px;
+    width: 50%;
+    border: none;
+    background: #fff;
+    line-height: 2.0;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
 .search__area select,
 .search__genre select {
     padding-left: 10px;
@@ -52,7 +74,6 @@
     -webkit-appearance: none;
     appearance: none;
 }
-
 
 .search__word {
     margin: 0;
@@ -72,6 +93,12 @@
     color: #E2E2E2;
 }
 
+.search-text {
+    margin: 10px auto;
+    width: 85%;
+    color: #000;
+}
+
 .shop-list__wrapper {
     margin: 10px auto;
     width: 85%;
@@ -79,86 +106,6 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 18px;
-}
-
-.shop__card {
-    width: 38vmin;
-    height: 38vmin;
-    border-radius: 10px;
-    box-shadow: 2px 2px 4px 0 rgba(0, 0, 0, .4);
-    background: var(--white);
-}
-
-.shop__card:nth-of-type(4n) {
-    margin-right: 0;
-}
-
-.shop__image {
-    width: 100%;
-    height: 50%;
-}
-
-.shop__image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;/* 縦横比率変えないように */
-    border-radius: 10px 10px 0 0;
-}
-
-.shop__info {
-    padding: 10px 15px;
-    height: 45%;
-}
-
-.shop__text {
-    color: #000;
-}
-
-.shop__text h3 {
-    margin: 10px 0 5px 0;
-}
-
-.shop__text p {
-    margin: 5px 0;
-    font-size: 12px;
-}
-
-.shop__button {
-    margin: 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-.shop__button a {
-    display: inline-block;
-}
-
-.shop__button-detail {
-    padding: 5px 10px;
-    font-size: 12px;
-    background-color: var(--main-color);
-    color: var(--white);
-    border-radius: 3px;
-}
-
-.shop__button-favorite {
-    content: "";
-    background: url(../image/icon_favorite_off.png);
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-    vertical-align: middle;
-    border: none;
-}
-
-.shop__button-favorite.change {
-    content: "";
-    background: url(../image/icon_favorite_on.png);
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    vertical-align: middle;
 }
 
 /* スマートフォン・タブレット用CSS */
@@ -181,9 +128,15 @@
         background: var(--white);
     }
 
-    .shop__text h3 {
-        margin: 10px 0;
+    .shop__name {
+        border: 1px solid pink;
     }
+
+    .shop__name h3 {
+        margin: 10px 0;
+        width: 20%;
+    }
+
 
     .shop__text p {
         margin: 5px 0 15px 0;

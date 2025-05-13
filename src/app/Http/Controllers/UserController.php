@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use App\Models\Favorite;
 use App\Models\Shop;
 use App\Models\Reservation;
@@ -43,13 +44,18 @@ class UserController extends Controller
         // お気に入り店舗取得
         $favorites = Favorite::where('user_id', $user['id'])->get();
         foreach($favorites as $favorite){
-            $shop = Shop::with('area', 'category')
-                            ->where('id', $favorite['shop_id'])
-                            ->first();
-
+            // 飲食店情報取得クエリの初期化
+            $imagePath = null;
+            $shopsQuery = Shop::with('area', 'category');
+            $shop = $shopsQuery->leftJoin('reviews', 'shops.id', '=', 'reviews.shop_id')
+                ->select('shops.*', DB::raw('AVG(reviews.rating) as average_rating'))
+                ->where('shops.id', $favorite['shop_id'])
+                ->groupBy('shops.id')
+                ->orderBy('shops.id') // 評価が同じ場合は店舗IDで安定ソート
+                ->first();
             $imagePath = 'image/' . $shop['image_url']; // publicディレクトリのパス
             if (!File::exists($imagePath)) {
-                $imagePath = 'storage/' . $shop['image_url']; // storageディレクトリのパス
+                $imagePath = 'storage/shop/' . $shop['image_url']; // storageディレクトリのパス
             }
             $shop['image_path'] = $imagePath;
 

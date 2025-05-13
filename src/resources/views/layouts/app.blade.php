@@ -80,6 +80,16 @@
             <div class="search__content">
                 <form action="/" method="get" class="search-form">
                     @csrf
+                    <div class="sort__area">
+                        <label for="sort">並び替え：</label>
+                        <select name="sort" id="sort" onchange="this.form.submit()">
+                            <option value="">--選択する--</option>
+                            <option value="random" {{ request('sort') === 'random' ? 'selected' : '' }}>ランダム</option>
+                            <option value="rating_desc" {{ request('sort') === 'rating_desc' ? 'selected' : '' }}>評価が高い順</option>
+                            <option value="rating_asc" {{ request('sort') === 'rating_asc' ? 'selected' : '' }}>評価が低い順</option>
+                        </select>
+                        <div class="polygon"></div>
+                    </div>
                     @isset($areas)
                     <div class="search__area">
                         <select name="area_id" id="" onchange="this.form.submit()">
@@ -115,6 +125,8 @@
     <main>
         @yield('content')
     </main>
+
+    @yield('scripts')
 </body>
 
 </html>

@@ -67,7 +67,13 @@
                     </div>
                     <div class="shop__info">
                         <div class="shop__text">
-                            <h3>{{ $favorite['shop_info']['shop_name'] }}</h3>
+                            <div class="shop__name">
+                                <h3>{{ $favorite['shop_info']['shop_name'] }}</h3>
+                                <div class="shop__rating">
+                                    <label class="shop-rating__star"><i class="fa-solid fa-star"></i></label>
+                                    <span class="shop-rating__score">{{ isset($favorite->shop->average_rating) ? number_format($favorite->shop->average_rating, 2) : '評価なし' }}</span>
+                                </div>
+                            </div>
                             <p>
                                 #{{ $favorite['shop_info']['area']['area_name'] }}　#{{ $favorite['shop_info']['category']['category_name'] }}
                             </p>

@@ -13,7 +13,13 @@
         </div>
         <div class="shop__info">
             <div class="shop__text">
-                <h3>{{ $shop['shop_name'] }}</h3>
+                <div class="shop__name">
+                    <h3>{{ $shop['shop_name'] }}</h3>
+                    <div class="shop__rating">
+                        <label class="shop-rating__star"><i class="fa-solid fa-star"></i></label>
+                        <span class="shop-rating__score">{{ isset($shop->average_rating) ? number_format($shop->average_rating, 2) : '評価なし' }}</span>
+                    </div>
+                </div>
                 <p>
                     #{{ $shop['area']['area_name'] }}　#{{ $shop['category']['category_name'] }}
                 </p>
