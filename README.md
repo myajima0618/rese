@@ -59,7 +59,7 @@ phpMyAdmin：http://localhost:8080/
 
 ![Image](https://github.com/user-attachments/assets/435e2e3e-1c45-487b-ab58-90655b03cea6)
 
-![Image](https://github.com/user-attachments/assets/518f9634-8ecd-4f89-bef2-59712e77916d)
+![Image](https://github.com/user-attachments/assets/1cd356fd-aa58-4e05-b197-38417fbc4cad)
 
 ## ER図
 ![Image](https://github.com/user-attachments/assets/ba7c749f-c719-44f4-a2e9-42d1e94cda81)
