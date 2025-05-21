@@ -87,7 +87,11 @@
                 <div class="review-card">
                     <div class="review-card__control">
                         @if(!empty($user['role']) && $user['role'] == 99)
-                        <a href="">口コミを削除</a>
+                        <form action="/admin/delete-review/{{ $all_review['id'] }}" class="admin-delete__form" method="POST">
+                            @csrf
+                            @method('patch')
+                            <button type="submit">口コミを削除</button>
+                        </form>
                         @endif
                     </div>
                     <div class="review-card__rating">
@@ -290,6 +294,22 @@
                     document.getElementById(`delete-review-form-${reviewId}`).submit();
                 }
             });
+        });
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const deleteForm = document.querySelector('.admin-delete__form');
+        const deleteButton = deleteForm.querySelector('button[type="submit"]');
+
+        deleteButton.addEventListener('click', function(event) {
+            const confirmation = confirm('本当にこの口コミを削除しますか？');
+            if (!confirmation) {
+                event.preventDefault(); // フォームの送信をキャンセル
+            } else {
+                // 確認がOKの場合、フォームは通常通り送信されます
+                console.log('削除処理を実行します。');
+            }
         });
     });
 </script>

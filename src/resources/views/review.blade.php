@@ -6,49 +6,50 @@
 
 @section('content')
 <div class="review__wrapper">
-    @if($user_review)
-    <form action="/review/update" class="review-form" method="post" enctype="multipart/form-data">
-        @method('PATCH')
-        @else
-        <form action="/review/register" class="review-form" method="post" enctype="multipart/form-data">
-            @endif
-            @csrf
-            <div class="review-form__inner">
-                <div class="shop-box">
-                    <div class="shop-box__question">
-                        @if(session('error'))
-                        {{ session('error') }}
-                        @endif
-                        <h1>今回のご利用はいかがでしたか？</h1>
+    <div class="review__display">
+        <div class="shop-box">
+            <div class="shop-box__question">
+                @if(session('error'))
+                {{ session('error') }}
+                @endif
+                <h1>今回のご利用はいかがでしたか？</h1>
+            </div>
+            <div class="shop-card__inner">
+                <div class="shop__card--small">
+                    <div class="shop__image">
+                        <img src="{{ asset($shop['image_path']) }}" alt="">
                     </div>
-                    <div class="shop-card__inner">
-                        <div class="shop__card">
-                            <div class="shop__image">
-                                <img src="{{ asset($shop['image_path']) }}" alt="">
-                            </div>
-                            <div class="shop__info">
-                                <div class="shop__text">
-                                    <h3>{{ $shop['shop_name'] }}</h3>
-                                    <p>
-                                        #{{ $shop['area']['area_name'] }}　#{{ $shop['category']['category_name'] }}
-                                    </p>
-                                </div>
-                                <div class="shop__button">
-                                    <a href="/detail/{{ $shop['id'] }}" class="shop__button-detail">詳しく見る</a>
-                                    @if($shop->checkFavorite())
-                                    <button class="shop__button-favorite change" data-shop-id="{{ $shop['id'] }}"></button>
-                                    @else
-                                    <button class="shop__button-favorite" data-shop-id="{{ $shop['id'] }}"></button>
-                                    @endif
-                                    @if(Auth::check())
-                                    <input type="hidden" id="user_id" value="{{ $user['id'] }}">
-                                    @endif
-                                </div>
-                            </div>
+                    <div class="shop__info">
+                        <div class="shop__text">
+                            <h3>{{ $shop['shop_name'] }}</h3>
+                            <p>
+                                #{{ $shop['area']['area_name'] }}　#{{ $shop['category']['category_name'] }}
+                            </p>
+                        </div>
+                        <div class="shop__button">
+                            <a href="/detail/{{ $shop['id'] }}" class="shop__button-detail">詳しく見る</a>
+                            @if($shop->checkFavorite())
+                            <button class="shop__button-favorite change" data-shop-id="{{ $shop['id'] }}"></button>
+                            @else
+                            <button class="shop__button-favorite" data-shop-id="{{ $shop['id'] }}"></button>
+                            @endif
+                            @if(Auth::check())
+                            <input type="hidden" id="user_id" value="{{ $user['id'] }}">
+                            @endif
                         </div>
                     </div>
                 </div>
-                <div class="border"></div>
+            </div>
+        </div>
+        <div class="border"></div>
+        @if($user_review)
+        <form action="/review/update" class="review-form" method="post" enctype="multipart/form-data">
+            @method('PATCH')
+            @else
+            <form action="/review/register" class="review-form" method="post" enctype="multipart/form-data">
+                @endif
+                @csrf
+
                 <div class="review-box">
                     <div class="review-box__error">
                         @error('rating')
@@ -104,22 +105,22 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <input type="hidden" name="shop_id" value="{{ $shop['id'] }}">
-            @if($user_review)
-            <input type="hidden" name="review_id" value="{{ $user_review['id'] }}">
-            <input type="hidden" name="reservation_id" value="{{ $user_review['reservation_id'] }}">
+    </div>
+    <input type="hidden" name="shop_id" value="{{ $shop['id'] }}">
+    @if($user_review)
+    <input type="hidden" name="review_id" value="{{ $user_review['id'] }}">
+    <input type="hidden" name="reservation_id" value="{{ $user_review['reservation_id'] }}">
+    @endif
+    <div class="review-form__button">
+        <button type="submit" class="review-form__submit">
+            @if($user_review&&$user_review['delete_flag']==null)
+            口コミを更新
+            @else
+            口コミを投稿
             @endif
-            <div class="review-form__button">
-                <button type="submit" class="review-form__submit">
-                    @if($user_review&&$user_review['delete_flag']==null)
-                    口コミを更新
-                    @else
-                    口コミを投稿
-                    @endif
-                </button>
-            </div>
-        </form>
+        </button>
+    </div>
+    </form>
 </div>
 
 <script>

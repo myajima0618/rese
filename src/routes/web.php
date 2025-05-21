@@ -60,6 +60,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::post('/admin/register-owner', [AdminController::class, 'storeOwner']);
     Route::get('/admin/send-notification', [AdminController::class, 'createNotification']);
     Route::post('/admin/send-notification', [AdminController::class, 'sendNotification']);
+    Route::patch('/admin/delete-review/{review}', [AdminController::class, 'destroyReview']);
+    Route::get('/admin/import-csv', [AdminController::class, 'createImportCsv']);
+    Route::post('/admin/import-csv', [AdminController::class, 'importShop']);
 
     Route::get('/owner', [OwnerController::class, 'index']);
     Route::get('/owner/register-shop', [OwnerController::class, 'createShop']);

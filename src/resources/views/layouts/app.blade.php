@@ -55,6 +55,7 @@
                         @if(!empty($user['role']) && $user['role'] == '99')
                         <li class="gnav-menu__item"><a href="/admin/register-owner">Registration(Shop Owner)</a></li>
                         <li class="gnav-menu__item"><a href="/admin/send-notification">Send Notification</a></li>
+                        <li class="gnav-menu__item"><a href="/admin/import-csv">Import CSV(Shop)</a></li>
                         @elseif(!empty($user['role']) && $user['role'] == '10')
                         <li class="gnav-menu__item"><a href="/owner">Shop Management</a></li>
                         <li class="gnav-menu__item"><a href="/owner/register-shop">Registration(Shop)</a></li>

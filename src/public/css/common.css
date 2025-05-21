@@ -181,14 +181,16 @@ select:focus {
 
 .register-form__heading,
 .login-form__heading,
-.notification-form__heading {
+.notification-form__heading,
+.import-form__heading {
     border-radius: 5px 5px 0 0;
     background-color: var(--main-color);
 }
 
 .register-form__heading h3,
 .login-form__heading h3,
-.notification-form__heading h3 {
+.notification-form__heading h3,
+.import-form__heading h3 {
     margin: 0;
     padding: 10px 20px;
     color: var(--white);
@@ -213,7 +215,7 @@ select:focus {
     shop card
 =============================*/
 .shop__card {
-    margin: 0 auto;
+    margin: 0;
     width: 38vmin;
     height: 38vmin;
     border-radius: 10px;

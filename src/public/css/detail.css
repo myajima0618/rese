@@ -134,6 +134,11 @@
     width: 100%;
 }
 
+.admin-delete__form button {
+    border: none;
+    text-decoration: underline;
+}
+
 .review-card {
     margin-bottom: 40px;
 }
