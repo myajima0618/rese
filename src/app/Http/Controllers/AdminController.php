@@ -186,7 +186,7 @@ class AdminController extends Controller
                 $shop->shop_name = $rowData['店舗名'];
                 $shop->area_id = $area['id'];
                 $shop->category_id = $category['id'];
-                $shop->user_id = $rowData['店舗代表者'];
+                $shop->user_id = $rowData['店舗代表者ID'];
                 $shop->description = $rowData['店舗概要'];
                 $shop->image_url = $imageUrl;
                 $shop->save();
