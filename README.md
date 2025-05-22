@@ -93,6 +93,12 @@ mail:user002@test.com
 mail:user003@test.com  
 mail:user004@test.com  
 mail:user005@test.com  
+mail:user006@test.com  
+mail:user007@test.com  
+mail:user008@test.com  
+mail:user009@test.com  
+mail:user010@test.com  
+
 ###### passwordはすべて「aaaa00000」としてシーダーファイルに登録しています。
 
 # 環境構築
